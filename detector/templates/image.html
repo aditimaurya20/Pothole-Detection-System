@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image Detection</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI;}
+
+body{
+height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+padding:15px 40px;
+background:rgba(255,255,255,0.05);
+}
+
+.nav-buttons button{
+padding:8px 16px;
+margin-left:10px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+}
+
+.container{
+display:flex;
+justify-content:center;
+align-items:center;
+height:80vh;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:15px;
+text-align:center;
+width:420px;
+}
+
+.btn{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+margin-top:10px;
+}
+
+.result{
+margin-top:15px;
+color:#00c6ff;
+font-weight:bold;
+}
+
+.location-input{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+outline:none;
+font-size:15px;
+margin-top:15px;
+}
+
+.send-btn:disabled{
+background:gray;
+cursor:not-allowed;
+opacity:0.6;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+<h2>Image Detection</h2>
+<div class="nav-buttons">
+<button onclick="location.href='/'">Home</button>
+</div>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Upload Road Image</h3>
+
+<form method="POST" action="/detect-image/" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input type="file" name="image" required>
+
+<br><br>
+
+<button class="btn">Detect Pothole</button>
+</form>
+
+<div class="result">
+{% if result %}
+  {{ result }} <br>
+  Severity: {{ severity }}
+{% endif %}
+</div>
+
+<br>
+
+{% if output_image %}
+
+<h3>Detected Output:</h3>
+
+<img src="{{ output_image }}" width="350" style="border-radius:10px; margin-top:10px;">
+
+<br><br>
+
+<form method="POST" action="/send-email/">
+{% csrf_token %}
+
+<input 
+type="text"
+name="location"
+id="locationBox"
+class="location-input"
+placeholder="Enter Pothole Location"
+onkeyup="enableButton()"
+required>
+
+<br>
+
+<button 
+type="submit"
+class="btn send-btn"
+id="sendBtn"
+disabled>
+
+Send Email
+
+</button>
+
+</form>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<script>
+
+function enableButton(){
+
+let location =
+document.getElementById("locationBox").value;
+
+let button =
+document.getElementById("sendBtn");
+
+if(location.trim() !== ""){
+button.disabled = false;
+}
+else{
+button.disabled = true;
+}
+
+}
+
+</script>
+
+</body>
+</html>

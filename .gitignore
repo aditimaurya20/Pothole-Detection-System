@@ -1,0 +1,9 @@
+media/
+*.mp4
+*.avi
+*.mov
+__pycache__/
+*.pyc
+venv/
+.env
+db.sqlite3

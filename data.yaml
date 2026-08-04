@@ -1,0 +1,5 @@
+train: C:/PotholeDetectionSystem/pothole_project/train/images
+val: C:/PotholeDetectionSystem/pothole_project/valid/images
+
+nc: 1
+names: ["pothole"]

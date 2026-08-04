@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Live Detection</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI;}
+
+body{
+height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+padding:15px 40px;
+background:rgba(255,255,255,0.05);
+}
+
+.nav-buttons button{
+padding:8px 16px;
+margin-left:10px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+}
+
+.container{
+display:flex;
+justify-content:center;
+align-items:center;
+height:80vh;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:15px;
+text-align:center;
+}
+
+.btn{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+margin:5px;
+}
+
+.camera-preview{
+width:500px;
+height:300px;
+border-radius:12px;
+border:3px solid rgba(255,255,255,0.2);
+object-fit:cover;
+background:black;
+}
+</style>
+
+</head>
+
+<body onload="startCamera()">
+
+<div class="navbar">
+<h2>Live Detection</h2>
+
+<div class="nav-buttons">
+<button onclick="location.href='/'">Home</button>
+</div>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Live Camera Detection</h3>
+
+<br>
+
+<video id="camera" class="camera-preview" autoplay></video>
+
+<br><br>
+
+<form action="{% url 'run_live' %}" method="post" style="display:inline;">
+{% csrf_token %}
+<button type="submit" class="btn" onclick="startCamera()">
+Start Live Detection
+</button>
+</form>
+
+<button class="btn" onclick="stopCamera()">
+Stop Camera
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let stream;
+
+function startCamera(){
+navigator.mediaDevices.getUserMedia({video:true})
+.then(function(s){
+stream = s;
+document.getElementById("camera").srcObject = stream;
+});
+}
+
+function stopCamera(){
+if(stream){
+let tracks = stream.getTracks();
+tracks.forEach(track => track.stop());
+document.getElementById("camera").srcObject = null;
+}
+}
+
+</script>
+
+</body>
+</html>

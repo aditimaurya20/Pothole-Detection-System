@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Video Detection</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+padding:15px 40px;
+background:rgba(255,255,255,0.05);
+}
+
+.nav-buttons button{
+padding:8px 16px;
+margin-left:10px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+}
+
+.container{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:80vh;
+padding:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:15px;
+text-align:center;
+width:550px;
+max-width:90%;
+}
+
+.btn{
+padding:10px 20px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+margin-top:10px;
+font-size:15px;
+}
+
+.result{
+margin-top:15px;
+color:#00c6ff;
+font-weight:bold;
+font-size:20px;
+}
+
+.output-video{
+width:100%;
+max-width:100%;
+margin-top:15px;
+border-radius:10px;
+object-fit:contain;
+}
+
+.location-input{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+outline:none;
+font-size:15px;
+margin-top:20px;
+}
+
+.send-btn:disabled{
+background:gray;
+cursor:not-allowed;
+opacity:0.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+<h2>Video Detection</h2>
+
+<div class="nav-buttons">
+<button onclick="location.href='/'">Home</button>
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h3>Upload Road Video</h3>
+
+<br>
+
+<form method="POST" action="/detect-video/" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<input type="file" name="video" accept="video/*" required>
+
+<br><br>
+
+<button class="btn" type="submit">
+Detect Pothole
+</button>
+
+</form>
+
+<div class="result">
+
+{% if result %}
+{{ result }}
+{% endif %}
+
+</div>
+
+{% if output_video %}
+
+<br>
+
+<h3>Detected Video Output:</h3>
+
+<video class="output-video" controls autoplay>
+<source src="{{ output_video }}" type="video/mp4">
+Your browser does not support video tag.
+</video>
+
+<form method="POST" action="/send-email/">
+
+{% csrf_token %}
+
+<input 
+type="text"
+name="location"
+id="locationBox"
+class="location-input"
+placeholder="Enter Pothole Location"
+onkeyup="enableButton()"
+required>
+
+<br>
+
+<button 
+type="submit"
+class="btn send-btn"
+id="sendBtn"
+disabled>
+
+Send Email
+
+</button>
+
+</form>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<script>
+
+function enableButton(){
+
+let location =
+document.getElementById("locationBox").value;
+
+let button =
+document.getElementById("sendBtn");
+
+if(location.trim() !== ""){
+button.disabled = false;
+}
+else{
+button.disabled = true;
+}
+
+}
+
+</script>
+
+</body>
+</html>

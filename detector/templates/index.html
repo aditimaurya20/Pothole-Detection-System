@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pothole Detection System</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+display:flex;
+flex-direction:column;
+color:white;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+}
+
+.nav-buttons button{
+padding:8px 16px;
+margin-left:10px;
+border:none;
+border-radius:6px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.nav-buttons button:hover{
+transform:scale(1.05);
+box-shadow:0 0 10px #00c6ff;
+}
+
+.container{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+padding:50px;
+border-radius:15px;
+width:450px;
+backdrop-filter:blur(15px);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card h1{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.card p{
+font-size:14px;
+opacity:0.8;
+margin-bottom:30px;
+}
+
+.btn{
+width:220px;
+padding:12px;
+margin:10px;
+border:none;
+border-radius:8px;
+font-size:15px;
+cursor:pointer;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 15px #00c6ff;
+}
+
+.footer{
+text-align:center;
+padding:10px;
+font-size:13px;
+opacity:0.6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+<h2>Pothole Detection</h2>
+
+<div class="nav-buttons">
+<button onclick="goHome()">Home</button>
+</div>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h1>Pothole Detection System</h1>
+
+<p>Smart road monitoring using computer vision</p>
+
+<button class="btn" onclick="location.href='/image'">Image Detection</button>
+
+<button class="btn" onclick="location.href='/video'">Video Detection</button>
+
+<button class="btn" onclick="location.href='/live'">Live Detection</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+• Pothole Detection System
+</div>
+
+<script>
+
+function goHome(){
+window.location.href="/";
+}
+
+</script>
+
+</body>
+</html>
