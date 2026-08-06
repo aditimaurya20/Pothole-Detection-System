@@ -1,9 +1,25 @@
-media/
-*.mp4
-*.avi
-*.mov
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Django
+db.sqlite3
+media/
+
+# YOLO Training
+runs/
+
+# Virtual Environment
 venv/
 .env
+
+# VS Code
+.vscode/
+
+media/
+runs/
+train/
 db.sqlite3
+__pycache__/
+*.pt
+sample_video.mp4
