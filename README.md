@@ -21,6 +21,7 @@ The application enables users to upload images or videos, or use a live webcam f
 - Web-based interface built with Django
 - YOLOv8-powered object detection
 - OpenCV-based image and video processing
+- Automated email alerts when a pothole is detected
 
 ---
 
